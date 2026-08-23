@@ -1,0 +1,48 @@
+import type { Metadata } from "next";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import "./globals.css";
+
+/**
+ * One variable superfamily carries both roles. Pulling in the width axis costs
+ * a single file and gives headings an expanded cut that body text does not
+ * have, which is the whole display voice — no second family needed.
+ */
+const archivo = Archivo({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  axes: ["wdth"],
+  display: "swap",
+  preload: true,
+});
+
+/** Technical data only: step numbers, key-system codes, the plate field. */
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  display: "swap",
+  preload: true,
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://proautokeys.co.uk"),
+  title: "Car Key Replacement Kent | Mobile Auto Locksmith",
+  description:
+    "Lost, broken or locked in? Mobile auto locksmith covering Kent. Car keys cut and programmed at your vehicle. Call now for a quote.",
+};
+
+export const viewport = {
+  // Matches the header and hero, so the browser chrome joins the dark band.
+  themeColor: "#14181c",
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover" as const,
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html lang="en-GB" className={`${archivo.variable} ${plexMono.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}

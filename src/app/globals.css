@@ -1,0 +1,249 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark grounds and body text. Cool graphite rather than pure black, so the
+     dark bands read as a material instead of a hole in the page. */
+  --color-ink: #14181c;
+  --color-steel: #232b33;
+
+  /* Brand red. Reserved for the call CTA, accent rules and icon marks — never
+     as a full-bleed fill, which is what made the old page read as cheap. */
+  --color-red: #c8102e;
+  --color-red-dark: #a00d25;
+
+  --color-paper: #ffffff;
+  --color-shell: #f2f4f6;
+  --color-line: #e3e7eb;
+  --color-slate: #5c6773;
+
+  /* Form field borders only. `line` is a hairline for dividers and card edges,
+     which is 1.2:1 against white — fine for decoration, but WCAG 1.4.11 wants
+     3:1 for the boundary of a control, and on a white input inside a white
+     card the boundary is the only thing saying "this is a field". */
+  --color-field: #8c949c;
+
+  /* One superfamily across two widths. Headings run expanded, body runs
+     normal, so the display voice comes from the width axis rather than a
+     second typeface. The mono is for data that really is data: step numbers,
+     key-system codes, registration plates. */
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+
+  --container-content: 1140px;
+
+  --radius-card: 10px;
+  --radius-btn: 8px;
+
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  --text-display: clamp(2.5rem, 1.55rem + 4.2vw, 4.5rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.035em;
+
+  --text-h1: clamp(2rem, 1.5rem + 2.2vw, 3rem);
+  --text-h1--line-height: 1.05;
+  --text-h1--letter-spacing: -0.03em;
+
+  --text-h2: clamp(1.75rem, 1.42rem + 1.45vw, 2.625rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.03em;
+
+  --text-h3: clamp(1.125rem, 1.06rem + 0.28vw, 1.3125rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.015em;
+
+  --text-lead: clamp(1.0625rem, 1rem + 0.33vw, 1.25rem);
+  --text-lead--line-height: 1.5;
+
+  --text-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --text-body--line-height: 1.6;
+
+  --text-cta: clamp(1.125rem, 1.05rem + 0.38vw, 1.375rem);
+  --text-cta--line-height: 1.2;
+
+  --text-num: clamp(2.25rem, 1.8rem + 2vw, 3.25rem);
+  --text-num--line-height: 1;
+  --text-num--letter-spacing: -0.05em;
+
+  --shadow-bar: 0 -2px 12px rgb(20 24 28 / 0.14);
+  --shadow-card: 0 1px 2px rgb(20 24 28 / 0.05);
+  --shadow-lift: 0 18px 40px -18px rgb(20 24 28 / 0.3);
+  --shadow-cta: 0 14px 34px -12px rgb(200 16 46 / 0.55);
+}
+
+:root {
+  /* Sticky call bar height, mobile only. Body padding below matches it so the
+     footer is never sitting underneath the bar. */
+  --call-bar-height: 60px;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: calc(
+      var(--call-bar-height) + env(safe-area-inset-bottom, 0px)
+    );
+  }
+
+  @media (min-width: 768px) {
+    body {
+      padding-bottom: 0;
+    }
+  }
+
+  /* Headings are the same family as body text, widened and tightened. Without
+     the width axis they would be indistinguishable from a paragraph. */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-stretch: 112%;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-red);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* The red outline all but disappears against the dark bands, so anything
+     focusable on ink gets a white one instead. Matches both the element
+     carrying the class and anything inside it, so marking the section is
+     enough.
+
+     `on-ink` describes what is *behind* the focus ring, not the element's own
+     fill. The ring is drawn outside the element, so a graphite button sitting
+     on a white card keeps the red one — a white ring there would be invisible
+     against the card. */
+  .on-ink:focus-visible,
+  .on-ink :focus-visible {
+    outline-color: #ffffff;
+  }
+}
+
+/* The hero photograph bleeds to the page edge. These scrims carry it back into
+   the flat ink so there is no visible rectangle: vertical on mobile, where the
+   image sits below the text, and horizontal on desktop, where it sits beside
+   it. */
+.hero-scrim {
+  /* Every stop is the same rgb as --color-ink at a different alpha. Mixing
+     against the `transparent` keyword instead would interpolate towards
+     transparent *black* and leave a visible cast at the midpoint. */
+  background: linear-gradient(
+    to bottom,
+    rgb(20 24 28 / 1) 0%,
+    rgb(20 24 28 / 0) 42%,
+    rgb(20 24 28 / 0.85) 100%
+  );
+}
+
+@media (min-width: 768px) {
+  .hero-scrim {
+    background:
+      linear-gradient(to top, rgb(20 24 28 / 1) 0%, rgb(20 24 28 / 0) 22%),
+      linear-gradient(
+        to right,
+        rgb(20 24 28 / 1) 0%,
+        rgb(20 24 28 / 1) 12%,
+        rgb(20 24 28 / 0.55) 36%,
+        rgb(20 24 28 / 0) 76%
+      );
+  }
+}
+
+/* Registration plate. Real UK rear plates are BS AU 145d yellow with black
+   Charles Wright characters; this is close enough to be read as a plate at a
+   glance without pretending to be typographically exact. */
+.plate-field {
+  background: #f7d117;
+  color: #101010;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* 0.65 rather than a fainter ghost: anything lighter drops the example plate
+   below 4.5:1 against the yellow. */
+.plate-field::placeholder {
+  color: #101010;
+  opacity: 0.65;
+  letter-spacing: 0.14em;
+}
+
+/* Motion budget: a staggered hero entrance at load, scroll reveals where the
+   browser can tie them to the scroll position, hover lift on cards, and the
+   accordion transition. Everything is CSS — no animation library. */
+@keyframes call-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.14);
+  }
+  70% {
+    transform: scale(0.98);
+  }
+}
+
+@utility animate-call-pulse {
+  animation: call-pulse 900ms ease-out 400ms 1 both;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--rise-step, 0) * 90ms);
+  }
+}
+
+/* Section headings and the coverage map only. Applying this to the big grids
+   as well meant a screenful of half-faded cards while scrolling, which reads
+   as a loading bug rather than a flourish.
+   Gated on @supports so browsers without scroll-driven animations get the
+   content plainly visible, rather than a load-time animation firing for
+   sections nowhere near the viewport. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 15% entry 65%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
