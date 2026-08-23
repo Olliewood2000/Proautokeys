@@ -14,10 +14,13 @@ import { BRAND } from "@/data/towns";
 export function Logo({
   variant = "dark",
   height = 36,
+  className,
   priority = false,
 }: {
   variant?: "dark" | "light";
   height?: number;
+  /** Display-size override. Intrinsic `height` stays the largest render. */
+  className?: string;
   /** Set on the header instance, which is above the fold. */
   priority?: boolean;
 }) {
@@ -30,6 +33,7 @@ export function Logo({
         alt={`${BRAND} — mobile auto locksmith`}
         height={height}
         width={Math.round(height * (src.width / src.height))}
+        className={className}
         priority={priority}
       />
     );

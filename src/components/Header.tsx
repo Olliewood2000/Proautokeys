@@ -10,10 +10,15 @@ import { BRAND, PHONE_DISPLAY, PHONE_TEL } from "@/data/towns";
  */
 export function Header() {
   return (
-    <header className="on-ink relative z-20 h-16 bg-ink text-white md:h-20">
+    <header className="on-ink relative z-20 h-[4.5rem] bg-ink text-white md:h-[5.5rem]">
       <div className="mx-auto flex h-full max-w-content items-center justify-between px-5">
         <Link href="/" className="flex items-center">
-          <Logo variant="light" height={44} priority />
+          <Logo
+            variant="light"
+            height={64}
+            className="h-14 w-auto md:h-16"
+            priority
+          />
         </Link>
 
         {/* Wrapped rather than given `hidden md:inline-flex` directly: the
