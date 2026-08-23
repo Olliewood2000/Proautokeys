@@ -5,7 +5,7 @@ import { CheckCircle2, Loader2, Phone } from "lucide-react";
 import Image from "next/image";
 import { PhoneTextLink } from "@/components/CallLink";
 import { ASSETS, type AssetPath } from "@/data/assets";
-import { PHONE_DISPLAY, PHONE_TEL } from "@/data/towns";
+import { PHONE_DISPLAY, PHONE_HREF } from "@/data/towns";
 
 type Fields = {
   name: string;
@@ -85,13 +85,18 @@ export function CallbackForm() {
   return (
     <section
       id="callback"
-      className="scroll-mt-6 overflow-hidden bg-shell py-16 md:py-24"
+      className="relative isolate scroll-mt-6 overflow-hidden bg-shell py-16 md:pt-24 md:pb-28"
     >
-      <div className="relative mx-auto grid max-w-[100rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,38rem)_minmax(0,1fr)]">
+      <div aria-hidden="true" className="callback-floor" />
+
+      <div className="relative z-10 mx-auto grid max-w-[100rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,38rem)_minmax(0,1fr)]">
         <CallbackCar side="left" src={ASSETS.callbackCarLeft} />
 
         <div className="relative z-10 mx-auto w-full max-w-[38rem] px-5 lg:px-0">
-          <div className="overflow-hidden rounded-card border border-line bg-paper shadow-lift">
+          {/* Shadow lives on this wrapper so `overflow-hidden` on the card
+              cannot clip it — it has to fall onto the cars beside it. */}
+          <div className="rounded-card shadow-stage">
+          <div className="overflow-hidden rounded-card border border-line bg-paper">
           <div className="bg-ink px-6 py-5 text-white md:px-8">
             <h2 className="text-h3 font-bold">
               {status === "sent" ? "Callback requested" : "Prefer a callback?"}
@@ -118,7 +123,7 @@ export function CallbackForm() {
                   still the fastest way to get sorted.
                 </p>
                 <a
-                  href={`tel:${PHONE_TEL}`}
+                  href={PHONE_HREF}
                   className="mt-6 inline-flex h-12 items-center justify-center gap-2 rounded-btn border border-line px-5 font-semibold transition-colors hover:border-ink"
                 >
                   <Phone aria-hidden="true" strokeWidth={2.25} className="size-4 text-red" />
@@ -221,7 +226,8 @@ export function CallbackForm() {
               </form>
             )}
           </div>
-        </div>
+          </div>
+          </div>
         </div>
 
         <CallbackCar side="right" src={ASSETS.callbackCarRight} />

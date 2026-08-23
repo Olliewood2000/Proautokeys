@@ -71,6 +71,12 @@
   --shadow-bar: 0 -2px 12px rgb(20 24 28 / 0.14);
   --shadow-card: 0 1px 2px rgb(20 24 28 / 0.05);
   --shadow-lift: 0 18px 40px -18px rgb(20 24 28 / 0.3);
+  /* Casts onto the cars flanking the callback card — dark enough to read
+     on red paint, wide enough to reach the bodywork. */
+  --shadow-stage:
+    0 4px 10px rgb(20 24 28 / 0.18),
+    0 18px 36px rgb(20 24 28 / 0.32),
+    0 40px 72px rgb(20 24 28 / 0.4);
   --shadow-cta: 0 14px 34px -12px rgb(200 16 46 / 0.55);
 }
 
@@ -162,6 +168,25 @@
         rgb(20 24 28 / 0.55) 36%,
         rgb(20 24 28 / 0) 76%
       );
+  }
+}
+
+/* Callback section: a flat graphite floor so the cars sit on a plane
+   rather than floating on the shell. Same ink as the coverage band —
+   no highlight wash, which read as a smear on the dark. */
+.callback-floor {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 0;
+  height: 38%;
+  background: var(--color-ink);
+}
+
+@media (min-width: 1024px) {
+  .callback-floor {
+    height: 48%;
   }
 }
 
