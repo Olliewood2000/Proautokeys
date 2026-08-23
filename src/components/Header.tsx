@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Phone } from "lucide-react";
 import { CallButton } from "@/components/CallLink";
 import { Logo } from "@/components/Logo";
-import { BRAND, PHONE_DISPLAY, PHONE_TEL } from "@/data/towns";
+import { BRAND, PHONE_DISPLAY, PHONE_HREF } from "@/data/towns";
 
 /**
  * Dark on every page, so it reads as one band with the hero below it on the
@@ -29,11 +29,11 @@ export function Header() {
         </div>
 
         <a
-          href={`tel:${PHONE_TEL}`}
+          href={PHONE_HREF}
           aria-label={`Call ${BRAND} on ${PHONE_DISPLAY}`}
-          className="flex size-12 items-center justify-center rounded-full md:hidden"
+          className="relative z-10 flex size-12 shrink-0 items-center justify-center rounded-full md:hidden"
         >
-          <span className="flex size-10 items-center justify-center rounded-full bg-red text-white transition-colors hover:bg-red-dark">
+          <span className="pointer-events-none flex size-10 items-center justify-center rounded-full bg-red text-white transition-colors hover:bg-red-dark">
             <Phone aria-hidden="true" strokeWidth={2.25} className="size-5" />
           </span>
         </a>

@@ -3,7 +3,7 @@ import { CallButton } from "@/components/CallLink";
 import { Logo } from "@/components/Logo";
 import { BRANDS } from "@/data/brands";
 import { PROOF } from "@/data/proof";
-import { BRAND, PHONE_DISPLAY, PHONE_TEL, TOWNS } from "@/data/towns";
+import { BRAND, PHONE_DISPLAY, PHONE_HREF, TOWNS } from "@/data/towns";
 
 const SERVICES = [
   "Lost car keys",
@@ -41,7 +41,7 @@ export function Footer({ coverage }: { coverage: string }) {
           <div className="col-span-2 md:col-span-1">
             <Logo variant="light" height={56} />
             <a
-              href={`tel:${PHONE_TEL}`}
+              href={PHONE_HREF}
               className="mt-5 block text-cta font-bold hover:underline"
             >
               {PHONE_DISPLAY}

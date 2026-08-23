@@ -29,6 +29,13 @@ export const metadata: Metadata = {
   title: "Car Key Replacement Kent | Mobile Auto Locksmith",
   description:
     "Lost, broken or locked in? Mobile auto locksmith covering Kent. Car keys cut and programmed at your vehicle. Call now for a quote.",
+  // Stop iOS from auto-linking the number on top of our explicit `tel:`
+  // buttons, which makes one tap try to open the dialer twice.
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
 };
 
 export const viewport = {

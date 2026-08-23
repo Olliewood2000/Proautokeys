@@ -1,5 +1,5 @@
 import { Phone } from "lucide-react";
-import { PHONE_DISPLAY, PHONE_TEL } from "@/data/towns";
+import { PHONE_DISPLAY, PHONE_HREF } from "@/data/towns";
 
 type Size = "lg" | "sm";
 type Tone = "solid" | "outline";
@@ -40,7 +40,7 @@ export function CallButton({
 }) {
   return (
     <a
-      href={`tel:${PHONE_TEL}`}
+      href={PHONE_HREF}
       className={`inline-flex items-center justify-center rounded-btn font-bold whitespace-nowrap transition-[background-color,border-color,transform,box-shadow] duration-200 active:translate-y-px ${
         sizes[size]
       } ${tones[tone]} ${
@@ -62,7 +62,7 @@ export function CallButton({
 export function PhoneTextLink({ className = "" }: { className?: string }) {
   return (
     <a
-      href={`tel:${PHONE_TEL}`}
+      href={PHONE_HREF}
       className={`font-semibold text-red-dark underline decoration-red/40 underline-offset-4 transition-colors hover:decoration-red ${className}`}
     >
       {PHONE_DISPLAY}

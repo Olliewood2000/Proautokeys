@@ -6,6 +6,12 @@ import { KENT_CENTRE, project } from "@/data/kent-map";
  */
 export const PHONE_TEL = "+447760340913";
 export const PHONE_DISPLAY = "07760 340913";
+/**
+ * `tel:` href used by every call button. The `+` is percent-encoded so
+ * mobile browsers open the dialer instead of also treating the href as a
+ * page to load (Safari's "trying to open multiple pages" prompt).
+ */
+export const PHONE_HREF = `tel:${encodeURIComponent(PHONE_TEL)}`;
 
 export const BRAND = "ProAutoKeys";
 
