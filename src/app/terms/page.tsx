@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
 import { BRAND } from "@/data/towns";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: `Terms of Service | ${BRAND}`,
   description: `The terms that apply when you book mobile auto locksmith work through ${BRAND}.`,
-  alternates: { canonical: "/terms" },
-  robots: { index: false, follow: true },
-};
+  path: "/terms",
+  noIndex: true,
+});
 
 export default function Terms() {
   return (

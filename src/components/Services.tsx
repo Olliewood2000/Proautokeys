@@ -59,7 +59,7 @@ const ALSO_COVERED = [
 
 export function Services() {
   return (
-    <section className="bg-paper py-16 md:py-24">
+    <section id="services" className="bg-paper py-16 md:py-24">
       <div className="mx-auto max-w-content px-5">
         <SectionHeading
           eyebrow="What we cover"

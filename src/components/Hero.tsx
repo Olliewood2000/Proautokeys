@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { KeyRound } from "lucide-react";
 import { CallButton } from "@/components/CallLink";
 import { ASSETS } from "@/data/assets";
@@ -10,7 +11,7 @@ import type { PageData } from "@/data/towns";
  * below the text instead, so the headline and the call button are the first
  * things painted.
  */
-export function Hero({ page }: { page: PageData }) {
+export function Hero({ page, path }: { page: PageData; path: string }) {
   const photo = ASSETS.heroKey;
   const hasPhoto = Boolean(photo) && typeof photo !== "string";
 
@@ -23,6 +24,20 @@ export function Hero({ page }: { page: PageData }) {
 
       <div className="relative z-10 mx-auto max-w-content px-5 pt-12 md:grid md:min-h-[30rem] md:grid-cols-[minmax(0,1fr)_46%] md:items-center md:pt-16 md:pb-20">
         <div className="md:max-w-[33rem]">
+          {path !== "/" && (
+            <nav aria-label="Breadcrumb" className="rise mb-5">
+              <ol className="flex items-center gap-2 font-mono text-eyebrow font-medium text-white/50 uppercase">
+                <li>
+                  <Link href="/" className="transition-colors hover:text-white">
+                    Home
+                  </Link>
+                </li>
+                <li aria-hidden="true">/</li>
+                <li className="text-white/70">{page.town}</li>
+              </ol>
+            </nav>
+          )}
+
           <p className="rise flex items-center gap-3 font-mono text-eyebrow font-medium text-white/60 uppercase">
             <span aria-hidden="true" className="h-4 w-0.5 shrink-0 bg-red" />
             Mobile auto locksmith

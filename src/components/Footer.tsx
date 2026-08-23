@@ -39,7 +39,9 @@ export function Footer({ coverage }: { coverage: string }) {
             footer taller than the section above it. */}
         <div className="grid grid-cols-2 gap-x-6 gap-y-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr] md:gap-8">
           <div className="col-span-2 md:col-span-1">
-            <Logo variant="light" height={56} />
+            <Link href="/" className="inline-block">
+              <Logo variant="light" height={56} />
+            </Link>
             <a
               href={PHONE_HREF}
               className="mt-5 block text-cta font-bold hover:underline"
@@ -63,6 +65,11 @@ export function Footer({ coverage }: { coverage: string }) {
           <div>
             <FooterHeading>Areas</FooterHeading>
             <ul className="mt-4 space-y-2.5 text-sm text-white/60">
+              <li>
+                <Link href="/" className="transition-colors hover:text-white">
+                  Kent
+                </Link>
+              </li>
               {TOWNS.map((town) => (
                 <li key={town.slug}>
                   <Link

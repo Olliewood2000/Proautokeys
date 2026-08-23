@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { PhoneTextLink } from "@/components/CallLink";
 import { CoverageMap } from "@/components/CoverageMap";
 import { SectionHeading } from "@/components/SectionHeading";
+import { getTownByName } from "@/data/towns";
 import type { PageData } from "@/data/towns";
 
 /**
@@ -13,7 +15,7 @@ import type { PageData } from "@/data/towns";
  */
 export function Coverage({ page }: { page: PageData }) {
   return (
-    <section className="on-ink bg-ink py-16 text-white md:py-24">
+    <section id="coverage" className="on-ink bg-ink py-16 text-white md:py-24">
       <div className="mx-auto max-w-content px-5">
         <div className="md:grid md:grid-cols-2 md:items-center md:gap-16">
           <div>
@@ -41,14 +43,26 @@ export function Coverage({ page }: { page: PageData }) {
             {page.coverageAreasLabel}
           </h3>
           <ul className="mt-5 grid grid-cols-2 gap-x-8 sm:grid-cols-3 md:grid-cols-5">
-            {page.nearbyAreas.map((area) => (
-              <li
-                key={area}
-                className="border-b border-white/10 py-2.5 text-sm text-white/75"
-              >
-                {area}
-              </li>
-            ))}
+            {page.nearbyAreas.map((area) => {
+              const town = getTownByName(area);
+              return (
+                <li
+                  key={area}
+                  className="border-b border-white/10 py-2.5 text-sm text-white/75"
+                >
+                  {town ? (
+                    <Link
+                      href={`/${town.slug}`}
+                      className="transition-colors hover:text-white"
+                    >
+                      {area}
+                    </Link>
+                  ) : (
+                    area
+                  )}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

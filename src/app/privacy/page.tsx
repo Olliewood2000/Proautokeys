@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
 import { BRAND, PHONE_DISPLAY } from "@/data/towns";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: `Privacy Policy | ${BRAND}`,
   description: `How ${BRAND} handles the details you give us when you call or request a callback.`,
-  alternates: { canonical: "/privacy" },
-  robots: { index: false, follow: true },
-};
+  path: "/privacy",
+  noIndex: true,
+});
 
 export default function Privacy() {
   return (

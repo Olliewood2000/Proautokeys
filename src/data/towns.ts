@@ -57,6 +57,10 @@ export function getTownBySlug(slug: string): Town | undefined {
   return TOWNS.find((t) => t.slug === slug);
 }
 
+export function getTownByName(name: string): Town | undefined {
+  return TOWNS.find((t) => t.town === name);
+}
+
 /**
  * Everything a page renders. Town pages derive this from a Town entry; the
  * homepage supplies its own generic brand version of the same shape.
@@ -75,6 +79,8 @@ export type PageData = {
   mapFocus: { x: number; y: number };
   /** Pins and names a single town. Omitted on the county-wide page. */
   mapLabel?: string;
+  /** WGS84 point for JSON-LD areaServed. Omitted on the county-wide page. */
+  geo?: { lat: number; lon: number };
 };
 
 export function pageDataForTown(town: Town): PageData {
@@ -89,6 +95,7 @@ export function pageDataForTown(town: Town): PageData {
     footerCoverage: `Mobile auto locksmith services across ${town.town} and ${town.county}`,
     mapFocus: project(town.lat, town.lon),
     mapLabel: town.town,
+    geo: { lat: town.lat, lon: town.lon },
   };
 }
 

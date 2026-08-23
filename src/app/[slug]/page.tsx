@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LandingPage } from "@/components/LandingPage";
 import { TOWNS, getTownBySlug, pageDataForTown } from "@/data/towns";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -11,16 +11,16 @@ export function generateStaticParams() {
 
 export async function generateMetadata({
   params,
-}: PageProps<"/[slug]">): Promise<Metadata> {
+}: PageProps<"/[slug]">) {
   const { slug } = await params;
   const town = getTownBySlug(slug);
   if (!town) return {};
 
-  return {
+  return pageMetadata({
     title: `Car Key Replacement ${town.town} | Mobile Auto Locksmith`,
     description: `Lost, broken or locked in? Mobile auto locksmith covering ${town.town} and surrounding areas. Car keys cut and programmed at your vehicle. Call now for a quote.`,
-    alternates: { canonical: `/${town.slug}` },
-  };
+    path: `/${town.slug}`,
+  });
 }
 
 export default async function TownPage({ params }: PageProps<"/[slug]">) {

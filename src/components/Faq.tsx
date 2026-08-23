@@ -11,7 +11,7 @@ export function Faq({ items }: { items: FaqItem[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="bg-paper py-16 md:py-24">
+    <section id="faq" className="bg-paper py-16 md:py-24">
       <div className="mx-auto max-w-content px-5 md:grid md:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] md:gap-16">
         <SectionHeading
           eyebrow="Common questions"
