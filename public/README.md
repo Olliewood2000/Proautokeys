@@ -9,7 +9,9 @@ a missing file, so the site stays clean while assets are outstanding.
 | `logo.webp` | Done | 329x144, transparent. Used on light grounds; the header and footer both run the white variant now. |
 | `logo-white.webp` | Done | Same mark with the wordmark in white, for the dark header and footer. Renders 91x40 and 110x48. |
 | `hero-key.webp` | Done | 1024x819. Two cut Ford fobs on a branded tag in front of the car. |
-| `brands/*.webp` \| `.svg` | Outstanding | Manufacturer logos for the brand wall. Optional — see below. |
+| `callback-nissan.webp` | Done | 1008x743, transparent. Qashqai facing left, behind the callback form. |
+| `callback-focus.webp` | Done | 1002x619, transparent. Focus facing right, behind the callback form. |
+| `brands/*.png` | Done | All 22 makes. Transparent PNGs named after the slug in `src/data/brands.ts`. |
 | Accreditation marks | Outstanding | Only if a real accreditation exists. Register in `assets.ts`, then reference from `accreditations` in `src/data/proof.ts`. |
 
 The coverage map no longer needs an image. It is drawn as an SVG from projected
@@ -29,23 +31,14 @@ biggest remaining image win.
 
 ## Manufacturer logos
 
-Optional. Every make in `src/data/brands.ts` renders as a wordmark tile until a
-logo exists for it, so the brand wall is complete and shippable with none of
-these present, and a missing file can never show as a broken image.
+All 22 makes in `src/data/brands.ts` have a transparent PNG in `public/brands/`,
+named after the slug (`ford.png`, `mercedes-benz.png`, `land-rover.png`). They
+are imported in `src/data/assets.ts` and listed in `BRAND_LOGOS`. A make missing
+from that map still renders as a wordmark tile, so a dropped file can never show
+as a broken image.
 
-To add one:
-
-1. Export as transparent WebP or SVG, trimmed to the mark's own bounds with no
-   baked-in padding — artwork carrying its own margin renders visibly smaller
-   than the marks either side of it.
-2. Put it in `public/brands/`, named after the `slug` in `src/data/brands.ts`
-   (`ford.webp`, `mercedes-benz.webp`).
-3. Import it in `src/data/assets.ts` and add it to `BRAND_LOGOS`.
-
-Around 40px tall at 1x is the render size, so 120px tall is plenty. They display
-greyscale at 60% opacity and come up to full colour on hover, so marks that rely
-on colour alone to be legible will read weakly at rest — that is the intended
-effect, but check anything unusual.
+Tiles render them with `unoptimized` so the browser is served the PNG itself.
+They display greyscale at 60% opacity and come up to full colour on hover.
 
 These are third-party trademarks used to indicate compatibility. Only include
 makes the business is comfortable displaying.

@@ -1,7 +1,31 @@
 import type { StaticImageData } from "next/image";
+import callbackFocus from "@/../public/callback-focus.webp";
+import callbackNissan from "@/../public/callback-nissan.webp";
 import heroKey from "@/../public/hero-key.webp";
 import logo from "@/../public/logo.webp";
 import logoWhite from "@/../public/logo-white.webp";
+import audi from "@/../public/brands/audi.png";
+import bmw from "@/../public/brands/bmw.png";
+import citroen from "@/../public/brands/citroen.png";
+import fiat from "@/../public/brands/fiat.png";
+import ford from "@/../public/brands/ford.png";
+import honda from "@/../public/brands/honda.png";
+import hyundai from "@/../public/brands/hyundai.png";
+import kia from "@/../public/brands/kia.png";
+import landRover from "@/../public/brands/land-rover.png";
+import mazda from "@/../public/brands/mazda.png";
+import mercedesBenz from "@/../public/brands/mercedes-benz.png";
+import mini from "@/../public/brands/mini.png";
+import nissan from "@/../public/brands/nissan.png";
+import peugeot from "@/../public/brands/peugeot.png";
+import renault from "@/../public/brands/renault.png";
+import seat from "@/../public/brands/seat.png";
+import skoda from "@/../public/brands/skoda.png";
+import suzuki from "@/../public/brands/suzuki.png";
+import toyota from "@/../public/brands/toyota.png";
+import vauxhall from "@/../public/brands/vauxhall.png";
+import volkswagen from "@/../public/brands/volkswagen.png";
+import volvo from "@/../public/brands/volvo.png";
 
 /**
  * Image manifest.
@@ -23,26 +47,46 @@ export const ASSETS = {
 
   /** Hero shot: two cut Ford fobs on a branded tag, in front of the car. */
   heroKey: heroKey as AssetPath,
+
+  /** Nissan Qashqai, facing left. Peeks out from behind the callback form. */
+  callbackCarLeft: callbackNissan as AssetPath,
+
+  /** Ford Focus, facing right. Peeks out from behind the callback form. */
+  callbackCarRight: callbackFocus as AssetPath,
 } as const;
 
 /**
  * Manufacturer logos for the brand wall, keyed by the `slug` in
  * `src/data/brands.ts`.
  *
- * Deliberately empty. Any make missing from here renders as a wordmark tile,
- * so the section is complete and shippable before a single logo file arrives
- * and no make ever shows as a broken image.
+ * Files live in `public/brands/` as transparent PNGs, named after the slug.
+ * The brand tile renders them with `unoptimized` so the browser is served
+ * the PNG itself rather than a WebP/AVIF conversion.
  *
- * To add one: drop the file in `public/brands/`, import it at the top of this
- * file, and add a line here.
- *
- *   import ford from "@/../public/brands/ford.webp";
- *   export const BRAND_LOGOS = { ford };
- *
- * Use a transparent WebP or SVG with the mark trimmed to its own bounds and no
- * baked-in padding — the tile supplies the spacing, and artwork that carries
- * its own margin renders visibly smaller than the marks either side of it.
- * These are third-party trademarks, so only include makes the business is
- * comfortable displaying.
+ * A make missing from here still renders as a wordmark tile, so a dropped
+ * file can never show as a broken image.
  */
-export const BRAND_LOGOS: Record<string, AssetPath> = {};
+export const BRAND_LOGOS: Record<string, AssetPath> = {
+  audi,
+  bmw,
+  citroen,
+  fiat,
+  ford,
+  honda,
+  hyundai,
+  kia,
+  "land-rover": landRover,
+  mazda,
+  "mercedes-benz": mercedesBenz,
+  mini,
+  nissan,
+  peugeot,
+  renault,
+  seat,
+  skoda,
+  suzuki,
+  toyota,
+  vauxhall,
+  volkswagen,
+  volvo,
+};

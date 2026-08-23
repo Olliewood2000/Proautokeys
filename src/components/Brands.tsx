@@ -81,7 +81,9 @@ function BrandTile({
             src={logo as Exclude<typeof logo, string | null>}
             alt={name}
             height={40}
-            className="max-h-10 w-auto max-w-[7rem] grayscale opacity-60 transition duration-200 group-hover:opacity-100 group-hover:grayscale-0"
+            unoptimized
+            style={{ width: "auto", height: "auto" }}
+            className="max-h-10 max-w-[7rem] grayscale opacity-60 transition duration-200 group-hover:opacity-100 group-hover:grayscale-0"
           />
         ) : (
           /* Until artwork lands, the make is set in the display face. A grid of

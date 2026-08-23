@@ -2,7 +2,9 @@
 
 import { useId, useState } from "react";
 import { CheckCircle2, Loader2, Phone } from "lucide-react";
+import Image from "next/image";
 import { PhoneTextLink } from "@/components/CallLink";
+import { ASSETS, type AssetPath } from "@/data/assets";
 import { PHONE_DISPLAY, PHONE_TEL } from "@/data/towns";
 
 type Fields = {
@@ -81,9 +83,15 @@ export function CallbackForm() {
   }
 
   return (
-    <section id="callback" className="scroll-mt-6 bg-shell py-16 md:py-24">
-      <div className="mx-auto max-w-[38rem] px-5">
-        <div className="overflow-hidden rounded-card border border-line bg-paper shadow-lift">
+    <section
+      id="callback"
+      className="scroll-mt-6 overflow-hidden bg-shell py-16 md:py-24"
+    >
+      <div className="relative mx-auto grid max-w-[100rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,38rem)_minmax(0,1fr)]">
+        <CallbackCar side="left" src={ASSETS.callbackCarLeft} />
+
+        <div className="relative z-10 mx-auto w-full max-w-[38rem] px-5 lg:px-0">
+          <div className="overflow-hidden rounded-card border border-line bg-paper shadow-lift">
           <div className="bg-ink px-6 py-5 text-white md:px-8">
             <h2 className="text-h3 font-bold">
               {status === "sent" ? "Callback requested" : "Prefer a callback?"}
@@ -214,8 +222,47 @@ export function CallbackForm() {
             )}
           </div>
         </div>
+        </div>
+
+        <CallbackCar side="right" src={ASSETS.callbackCarRight} />
       </div>
     </section>
+  );
+}
+
+/**
+ * Decorative cars that sit in the empty flanks and tuck under the form.
+ * Hidden below `lg` — there is not enough side space for the peek to read,
+ * and they would only crowd the fields.
+ */
+function CallbackCar({
+  side,
+  src,
+}: {
+  side: "left" | "right";
+  src: AssetPath;
+}) {
+  if (!src || typeof src === "string") {
+    return <div className="hidden lg:block" />;
+  }
+
+  const isLeft = side === "left";
+
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none relative hidden lg:block"
+    >
+      <Image
+        src={src}
+        alt=""
+        className={
+          isLeft
+            ? "absolute top-1/2 right-0 h-auto w-[min(115%,42rem)] max-w-none -translate-y-[46%] translate-x-[22%]"
+            : "absolute top-1/2 left-0 h-auto w-[min(115%,42rem)] max-w-none -translate-x-[22%] -translate-y-[46%]"
+        }
+      />
+    </div>
   );
 }
 
