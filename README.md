@@ -38,8 +38,8 @@ throw `SyntaxError: Unexpected end of JSON input` until the build finishes.
 `src/data/towns.ts`, top of the file:
 
 ```ts
-export const PHONE_TEL = "+447760340913";
-export const PHONE_DISPLAY = "07760 340913";
+export const PHONE_TEL = "+441622938999";
+export const PHONE_DISPLAY = "01622 938999";
 ```
 
 Those two constants are the only place the number appears. Swapping in a

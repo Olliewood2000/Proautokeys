@@ -4,8 +4,8 @@ import { KENT_CENTRE, project } from "@/data/kent-map";
  * The phone number lives here and nowhere else. When the tracked number
  * arrives, changing these two constants changes it everywhere on the site.
  */
-export const PHONE_TEL = "+447760340913";
-export const PHONE_DISPLAY = "07760 340913";
+export const PHONE_TEL = "+441622938999";
+export const PHONE_DISPLAY = "01622 938999";
 /**
  * `tel:` href used by every call button. The `+` is percent-encoded so
  * mobile browsers open the dialer instead of also treating the href as a
