@@ -56,10 +56,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  // Stop iOS from auto-linking the number on top of our explicit `tel:`
-  // buttons, which makes one tap try to open the dialer twice.
   formatDetection: {
-    telephone: false,
     email: false,
     address: false,
   },
