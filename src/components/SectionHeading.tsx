@@ -1,3 +1,5 @@
+import { Reveal } from "@/components/motion/Reveal";
+
 /**
  * Every section opens the same way: a mono label with a red tick beside it,
  * then the heading, then an optional line of context. Keeping it in one place
@@ -21,8 +23,8 @@ export function SectionHeading({
   const centered = align === "center";
 
   return (
-    <div
-      className={`reveal ${centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}
+    <Reveal
+      className={`${centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}
     >
       <p
         className={`flex items-center gap-3 font-mono text-eyebrow font-medium uppercase ${
@@ -46,6 +48,6 @@ export function SectionHeading({
           {lead}
         </p>
       )}
-    </div>
+    </Reveal>
   );
 }

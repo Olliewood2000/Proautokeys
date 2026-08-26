@@ -13,6 +13,7 @@ a missing file, so the site stays clean while assets are outstanding.
 | `callback-focus.webp` | Done | 1002x619, transparent. Focus facing right, behind the callback form. |
 | `callback-motorway.webp` | Done | 1024x512. Red-tinted motorway behind the callback form, cars and graphite floor. |
 | `brands/*.png` | Done | All 22 makes. Transparent PNGs named after the slug in `src/data/brands.ts`. |
+| `on-site.webp` | Done | 1024x614. Locksmith at the key-cutting machine, keys on the wall. Crops to 16:9 on mobile and ~21:9 on desktop. |
 | Accreditation marks | Outstanding | Only if a real accreditation exists. Register in `assets.ts`, then reference from `accreditations` in `src/data/proof.ts`. |
 
 The coverage map no longer needs an image. It is drawn as an SVG from projected
@@ -29,6 +30,13 @@ The current file is 1024px wide. It fills roughly half the viewport on desktop,
 so on a 1440px screen at 2x it is being asked for around 1500px and is
 upscaling. **A 1600–2000px source would visibly sharpen it**, and is the single
 biggest remaining image win.
+
+## On-site band
+
+The mid-page photograph in `OnSite` is a contained crop (16:9 on mobile, ~21:9
+on desktop), not a bleed. The current file is 1024px wide. A 1600–2400px
+source would sharpen the 2x crop, but the subject sits well inside the frame
+so the wide crop still keeps the machine and the hand.
 
 ## Manufacturer logos
 

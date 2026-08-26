@@ -3,6 +3,7 @@ import callbackFocus from "@/../public/callback-focus.webp";
 import callbackMotorway from "@/../public/callback-motorway.webp";
 import callbackNissan from "@/../public/callback-nissan.webp";
 import heroKey from "@/../public/hero-key.webp";
+import onSite from "@/../public/on-site.webp";
 import logo from "@/../public/logo.webp";
 import logoWhite from "@/../public/logo-white.webp";
 import audi from "@/../public/brands/audi.png";
@@ -57,6 +58,9 @@ export const ASSETS = {
 
   /** Red-tinted motorway, behind the callback form, cars and graphite floor. */
   callbackMotorway: callbackMotorway as AssetPath,
+
+  /** Mid-page band: locksmith at the key-cutting machine. Landscape crop. */
+  onSite: onSite as AssetPath,
 } as const;
 
 /**

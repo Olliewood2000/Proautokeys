@@ -72,7 +72,7 @@ export function Hero({ page, path }: { page: PageData; path: string }) {
 
       {/* After the copy in the DOM so mobile reads text first; absolutely
           positioned from md up, where it takes the reserved grid column. */}
-      <div className="relative aspect-[5/4] w-full sm:aspect-[16/9] md:absolute md:inset-y-0 md:right-0 md:aspect-auto md:w-[52%]">
+      <div className="hero-photo relative aspect-[5/4] w-full sm:aspect-[16/9] md:absolute md:inset-y-0 md:right-0 md:aspect-auto md:w-[52%]">
         {hasPhoto ? (
           <Image
             src={photo as Exclude<typeof photo, string | null>}

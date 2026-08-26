@@ -6,6 +6,7 @@ import {
   SearchX,
   Unplug,
 } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 
 /**
@@ -68,16 +69,31 @@ export function Services() {
         />
 
         {/* Single column until 640px: two-up at phone width squeezed the copy
-            into three-word lines. */}
-        <ul className="mt-12 grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5">
+            into three-word lines. One reveal for the whole grid, not per
+            card — staggering every tile in a screenful reads as a loading
+            bug rather than a flourish. */}
+        <Reveal
+          as="ul"
+          className="mt-12 grid gap-4 sm:grid-cols-2 md:grid-cols-4 md:gap-5"
+        >
           {SERVICES.map(({ icon: Icon, title, body, wide }) => (
             <li
               key={title}
-              className={`group rounded-card border border-line bg-paper p-5 shadow-card transition-[border-color,box-shadow,transform] duration-200 md:p-7 md:hover:-translate-y-1 md:hover:border-transparent md:hover:shadow-lift ${
+              className={`group relative overflow-hidden rounded-card border border-line bg-paper p-5 shadow-card transition-[border-color,box-shadow,transform] duration-200 md:p-7 md:hover:-translate-y-1 md:hover:border-red/30 md:hover:shadow-lift ${
                 wide ? "sm:col-span-2" : ""
               }`}
             >
-              <span className="flex size-11 items-center justify-center rounded-card bg-ink transition-colors duration-200 group-hover:bg-red">
+              {wide && (
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-y-0 left-0 w-[3px] bg-red"
+                />
+              )}
+              <span
+                className={`flex size-11 items-center justify-center rounded-card transition-colors duration-200 ${
+                  wide ? "bg-red" : "bg-ink group-hover:bg-red"
+                }`}
+              >
                 <Icon
                   aria-hidden="true"
                   strokeWidth={1.75}
@@ -88,21 +104,27 @@ export function Services() {
               <p className="mt-2 text-body text-slate">{body}</p>
             </li>
           ))}
-        </ul>
+        </Reveal>
 
         {/* The slash only separates when the items sit inline, so it waits for
             md. At phone width each is its own line, where a trailing slash is
             litter. */}
-        <ul className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-line pt-6 font-mono text-[0.75rem] font-medium tracking-wide text-slate uppercase">
-          {ALSO_COVERED.map((item) => (
-            <li
-              key={item}
-              className="after:hidden after:ml-3 after:text-line last:after:hidden md:after:inline md:after:content-['/']"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
+        <div className="mt-8 flex items-start gap-3 border-t border-line pt-6">
+          <span
+            aria-hidden="true"
+            className="mt-0.5 h-3.5 w-0.5 shrink-0 bg-red"
+          />
+          <ul className="flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-[0.75rem] font-medium tracking-wide text-slate uppercase">
+            {ALSO_COVERED.map((item) => (
+              <li
+                key={item}
+                className="after:hidden after:ml-3 after:text-red/40 last:after:hidden md:after:inline md:after:content-['/']"
+              >
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

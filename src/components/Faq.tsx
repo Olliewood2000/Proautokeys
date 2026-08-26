@@ -16,7 +16,7 @@ export function Faq({ items }: { items: FaqItem[] }) {
         <SectionHeading
           eyebrow="Common questions"
           title="The things people ask first"
-          className="md:sticky md:top-10 md:self-start"
+          className="md:sticky md:top-[7.5rem] md:self-start"
         />
 
         <div className="mt-10 md:mt-0">
@@ -56,10 +56,16 @@ export function Faq({ items }: { items: FaqItem[] }) {
                   id={panelId}
                   role="region"
                   aria-labelledby={buttonId}
-                  hidden={!isOpen}
-                  className="max-w-[62ch] pb-6 text-body text-slate"
+                  aria-hidden={!isOpen}
+                  inert={!isOpen}
+                  className="grid transition-[grid-template-rows] duration-300 ease-out motion-reduce:transition-none"
+                  style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                 >
-                  {item.answer}
+                  <div className="overflow-hidden">
+                    <p className="max-w-[62ch] pb-6 text-body text-slate">
+                      {item.answer}
+                    </p>
+                  </div>
                 </div>
               </div>
             );

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Car, Navigation, PoundSterling, Star, Wrench } from "lucide-react";
+import { Reveal } from "@/components/motion/Reveal";
 import { PROOF, hasGoogleRating } from "@/data/proof";
 
 /**
@@ -38,8 +39,8 @@ export function CredentialStrip() {
     <section className="on-ink border-t border-white/10 bg-ink text-white">
       <div className="mx-auto max-w-content px-5 py-8 md:py-10">
         <ul className="grid grid-cols-2 gap-x-6 gap-y-7 md:grid-cols-4 md:gap-x-8">
-          {FACTS.map(({ icon: Icon, title, detail }) => (
-            <li key={title} className="flex gap-3">
+          {FACTS.map(({ icon: Icon, title, detail }, i) => (
+            <Reveal key={title} as="li" delay={i} className="flex gap-3">
               <Icon
                 aria-hidden="true"
                 strokeWidth={1.75}
@@ -51,7 +52,7 @@ export function CredentialStrip() {
                   {detail}
                 </p>
               </div>
-            </li>
+            </Reveal>
           ))}
         </ul>
 

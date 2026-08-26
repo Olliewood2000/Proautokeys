@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { PhoneTextLink } from "@/components/CallLink";
 import { CoverageMap } from "@/components/CoverageMap";
+import { Reveal } from "@/components/motion/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getTownByName } from "@/data/towns";
 import type { PageData } from "@/data/towns";
@@ -12,8 +16,12 @@ import type { PageData } from "@/data/towns";
  *
  * The towns run as a ruled two-column list rather than the pill cloud that was
  * here before, which read as tags to be clicked and were not links.
+ *
+ * Hover state lives here so the list and the map can light the same town.
  */
 export function Coverage({ page }: { page: PageData }) {
+  const [hoveredTown, setHoveredTown] = useState<string | null>(null);
+
   return (
     <section id="coverage" className="on-ink bg-ink py-16 text-white md:py-24">
       <div className="mx-auto max-w-content px-5">
@@ -33,9 +41,14 @@ export function Coverage({ page }: { page: PageData }) {
             </p>
           </div>
 
-          <div className="reveal mt-12 md:mt-0">
-            <CoverageMap focus={page.mapFocus} label={page.mapLabel} />
-          </div>
+          <Reveal className="mt-12 md:mt-0" delay={1}>
+            <CoverageMap
+              focus={page.mapFocus}
+              label={page.mapLabel}
+              activeTown={hoveredTown}
+              onTownHover={setHoveredTown}
+            />
+          </Reveal>
         </div>
 
         <div className="mt-14 border-t border-white/12 pt-8">
@@ -45,15 +58,22 @@ export function Coverage({ page }: { page: PageData }) {
           <ul className="mt-5 grid grid-cols-2 gap-x-8 sm:grid-cols-3 md:grid-cols-5">
             {page.nearbyAreas.map((area) => {
               const town = getTownByName(area);
+              const isActive = hoveredTown === area;
               return (
                 <li
                   key={area}
-                  className="border-b border-white/10 py-2.5 text-sm text-white/75"
+                  className={`border-b border-white/10 py-2.5 text-sm transition-colors ${
+                    isActive ? "text-white" : "text-white/75"
+                  }`}
+                  onMouseEnter={() => setHoveredTown(area)}
+                  onMouseLeave={() => setHoveredTown(null)}
                 >
                   {town ? (
                     <Link
                       href={`/${town.slug}`}
                       className="transition-colors hover:text-white"
+                      onFocus={() => setHoveredTown(area)}
+                      onBlur={() => setHoveredTown(null)}
                     >
                       {area}
                     </Link>

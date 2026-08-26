@@ -171,6 +171,26 @@
   }
 }
 
+/* On-site band: the photograph is bright (white key wall, lit machine
+   screen). The caption sits bottom-left, so the scrim is heaviest there
+   and fades out before it smothers the rest of the frame. Every stop is
+   the same rgb as --color-ink so the mix never goes through black. */
+.on-site-scrim {
+  background:
+    linear-gradient(
+      to top,
+      rgb(20 24 28 / 0.92) 0%,
+      rgb(20 24 28 / 0.62) 32%,
+      rgb(20 24 28 / 0.22) 55%,
+      rgb(20 24 28 / 0) 78%
+    ),
+    linear-gradient(
+      to right,
+      rgb(20 24 28 / 0.28) 0%,
+      rgb(20 24 28 / 0) 42%
+    );
+}
+
 /* Callback section: a flat graphite floor so the cars sit on a plane
    rather than floating on the motorway. Sits above the photograph and
    below the cars. Same ink as the coverage band — no highlight wash,
@@ -247,19 +267,42 @@
   }
 }
 
-/* Section headings and the coverage map only. Applying this to the big grids
-   as well meant a screenful of half-faded cards while scrolling, which reads
-   as a loading bug rather than a flourish.
-   Gated on @supports so browsers without scroll-driven animations get the
-   content plainly visible, rather than a load-time animation firing for
-   sections nowhere near the viewport. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: rise-in linear both;
-      animation-timeline: view();
-      animation-range: entry 15% entry 65%;
-    }
+/* Hero photo only — a slight zoom-and-settle so the hero feels choreographed
+   rather than text-only. The section around it already clips overflow, so
+   the initial 1.05 scale never shows a seam. */
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-photo {
+    animation: photo-in 900ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+  }
+}
+
+/* Scroll reveals, driven by the shared IntersectionObserver in
+   src/components/motion/Reveal.tsx rather than `animation-timeline: view()`
+   — that CSS feature has no Safari or Firefox support, which left most
+   mobile visitors with the sections simply appearing flat. JS toggles
+   `.is-visible` once an element enters the viewport; the element sits at
+   opacity 0 until then, never `display: none`, so there is no layout shift
+   either way. Kept off entire big grids on purpose — animating every card
+   in a screenful at once reads as a loading bug rather than a flourish. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+  }
+
+  .reveal.is-visible {
+    animation: rise-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--rise-step, 0) * 90ms);
   }
 }
 

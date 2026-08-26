@@ -9,6 +9,7 @@ import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { BreadcrumbJsonLd, FaqJsonLd, LocalBusinessJsonLd } from "@/components/JsonLd";
 import { KeyEdge } from "@/components/KeyEdge";
+import { OnSite } from "@/components/OnSite";
 import { Services } from "@/components/Services";
 import { StickyCallBar } from "@/components/StickyCallBar";
 import { getFaqs } from "@/data/faqs";
@@ -29,6 +30,7 @@ export function LandingPage({ page, path }: { page: PageData; path: string }) {
         <CredentialStrip />
         <KeyEdge />
         <Services />
+        <OnSite />
         <HowItWorks />
         <Brands />
         <Coverage page={page} />
