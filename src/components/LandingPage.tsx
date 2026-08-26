@@ -1,6 +1,7 @@
 import { Brands } from "@/components/Brands";
 import { CallbackForm } from "@/components/CallbackForm";
 import { Coverage } from "@/components/Coverage";
+import { CoverageAreas } from "@/components/CoverageAreas";
 import { CredentialStrip } from "@/components/CredentialStrip";
 import { Faq } from "@/components/Faq";
 import { Footer } from "@/components/Footer";
@@ -41,6 +42,7 @@ export function LandingPage({ page, path }: { page: PageData; path: string }) {
         <HowItWorks />
         <Brands />
         <Coverage page={page} />
+        <CoverageAreas page={page} />
         <CallbackForm town={page.town} />
         <Faq items={faqs} />
       </main>
