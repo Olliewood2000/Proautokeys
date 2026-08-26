@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     // Fixed-width images round up to the nearest entry here. 320 covers the 2x
     // render of the header logo (146px); 256 covers the footer (128px).
     imageSizes: [16, 32, 48, 64, 96, 128, 176, 224, 256, 320, 384],
+    // AVIF first: same visual result as the WebP source, 15-30% fewer bytes
+    // on the wire for browsers that support it. Pure content-negotiation —
+    // nothing about markup, layout or the WebP fallback changes.
+    formats: ["image/avif", "image/webp"],
   },
   async headers() {
     return [

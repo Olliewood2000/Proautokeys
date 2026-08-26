@@ -19,13 +19,19 @@ const archivo = Archivo({
   preload: true,
 });
 
-/** Technical data only: step numbers, key-system codes, the plate field. */
+/**
+ * Technical data only: step numbers, key-system codes, the plate field.
+ * Not preloaded — small text, never the largest element on any page, so
+ * giving it a `<link rel="preload">` only pulls bandwidth away from the
+ * hero photo and the Archivo file on a first load. `display: "swap"` means
+ * there is no invisible-text wait either way, preload or not.
+ */
 const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["500", "600"],
   display: "swap",
-  preload: true,
+  preload: false,
 });
 
 export const metadata: Metadata = {
