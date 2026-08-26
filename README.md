@@ -58,7 +58,9 @@ Adding a town is a data entry, not a build. Append an object to `TOWNS` in
   lat: 51.146,
   lon: 0.874,
   nearbyAreas: ["Willesborough", "Kennington", "Charing", ...],
-  localIntro: "...",
+  localIntro: ["...", "...", "...", "..."],        // 3-4 paragraphs
+  localScenarios: [{ title: "...", line: "..." }, ...], // exactly 4
+  localFaqs: [{ q: "...", a: "..." }, ...],             // exactly 2
 }
 ```
 
@@ -74,10 +76,10 @@ The page at `/car-key-replacement-ashford` is then statically generated at
 build time, and picked up automatically by `sitemap.ts`, the metadata, and the
 LocalBusiness JSON-LD.
 
-`localIntro` **must be genuinely unique per town** — specific roads, retail
-parks, station car parks, landmarks. Templated intros with the town name
-swapped in are the fastest way to get a set of pages treated as doorway pages.
-Write it as if you know the place.
+`localIntro`, `localScenarios` and `localFaqs` **must be genuinely unique per
+town** — specific roads, retail parks, station car parks, landmarks.
+Templated content with the town name swapped in is the fastest way to get a
+set of pages treated as doorway pages. Write it as if you know the place.
 
 ## Images
 
@@ -119,8 +121,6 @@ be.
 - Every `systems` string in `src/data/brands.ts` is a draft. The blade profiles
   and key systems must be confirmed with the partner locksmith before launch —
   listing a profile that isn't carried is worse than listing nothing.
-- `src/app/privacy/page.tsx` and `src/app/terms/page.tsx` are stubs and need
-  real wording before launch.
 - `SITE_URL` in `src/components/JsonLd.tsx` and `metadataBase` in
   `src/app/layout.tsx` assume `https://proautokeys.co.uk`. Update if the real
   domain differs.
@@ -132,7 +132,7 @@ src/
   app/
     page.tsx           generic brand homepage
     [slug]/page.tsx    town pages, generateStaticParams from TOWNS
-    privacy/, terms/   stubs
+    privacy/, terms/   legal pages
     sitemap.ts         generated from TOWNS
     robots.ts
     globals.css        design tokens as a Tailwind v4 @theme

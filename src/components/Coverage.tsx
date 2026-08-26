@@ -30,9 +30,16 @@ export function Coverage({ page }: { page: PageData }) {
             <SectionHeading
               eyebrow="Where we work"
               title={page.coverageHeading}
-              lead={page.localIntro}
               tone="dark"
             />
+
+            <div className="mt-4 space-y-4">
+              {page.localIntro.map((paragraph, i) => (
+                <p key={i} className="text-lead text-white/65">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
 
             <p className="mt-8 text-body text-white/65">
               Not sure if we reach you? Give us a call and we&apos;ll tell you

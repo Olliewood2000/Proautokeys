@@ -9,6 +9,7 @@ import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { BreadcrumbJsonLd, FaqJsonLd, LocalBusinessJsonLd } from "@/components/JsonLd";
 import { KeyEdge } from "@/components/KeyEdge";
+import { LocalScenarios } from "@/components/LocalScenarios";
 import { OnSite } from "@/components/OnSite";
 import { Services } from "@/components/Services";
 import { StickyCallBar } from "@/components/StickyCallBar";
@@ -16,7 +17,12 @@ import { getFaqs } from "@/data/faqs";
 import type { PageData } from "@/data/towns";
 
 export function LandingPage({ page, path }: { page: PageData; path: string }) {
-  const faqs = getFaqs(page.town);
+  const faqs = page.localFaqs
+    ? [
+        ...getFaqs(page.town),
+        ...page.localFaqs.map(({ q, a }) => ({ question: q, answer: a })),
+      ]
+    : getFaqs(page.town);
 
   return (
     <>
@@ -29,6 +35,7 @@ export function LandingPage({ page, path }: { page: PageData; path: string }) {
         <Hero page={page} path={path} />
         <CredentialStrip />
         <KeyEdge />
+        <LocalScenarios page={page} />
         <Services />
         <OnSite />
         <HowItWorks />
