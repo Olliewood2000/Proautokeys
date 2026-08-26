@@ -12,11 +12,14 @@ type Fields = {
   phone: string;
   reg: string;
   detail: string;
+  /** Honeypot. Real visitors never see this field, so anything typed here
+   *  marks the submission as spam without letting the bot know it failed. */
+  company: string;
 };
 
 type Errors = Partial<Record<keyof Fields, string>>;
 
-const EMPTY: Fields = { name: "", phone: "", reg: "", detail: "" };
+const EMPTY: Fields = { name: "", phone: "", reg: "", detail: "", company: "" };
 
 /** No `outline-none` here. It would suppress the global focus ring as well as
  *  the browser default, leaving a border colour change as the only focus cue. */
@@ -42,7 +45,7 @@ function validate(fields: Fields): Errors {
   return errors;
 }
 
-export function CallbackForm() {
+export function CallbackForm({ town }: { town: string }) {
   const id = useId();
   const [fields, setFields] = useState<Fields>(EMPTY);
   const [errors, setErrors] = useState<Errors>({});
@@ -52,6 +55,7 @@ export function CallbackForm() {
   // Held separately from `fields` so the confirmation keeps showing the number
   // we actually submitted, whatever happens to the inputs afterwards.
   const [sentTo, setSentTo] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const backdrop = ASSETS.callbackMotorway;
   const hasBackdrop =
@@ -64,24 +68,31 @@ export function CallbackForm() {
     setErrors((prev) => (prev[key] ? { ...prev, [key]: undefined } : prev));
   };
 
-  async function handleSubmit(event: React.FormEvent) {
-    event.preventDefault();
+  async function handleSubmit() {
+    if (status === "sending") return;
 
     const found = validate(fields);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
     setStatus("sending");
+    setErrorMessage("");
     try {
       const response = await fetch("/api/callback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(fields),
+        body: JSON.stringify({ ...fields, town }),
       });
-      if (!response.ok) throw new Error(String(response.status));
+      const data: { error?: string } = await response
+        .json()
+        .catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || "That didn't send.");
+      }
       setSentTo(fields.phone.trim());
       setStatus("sent");
-    } catch {
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "That didn't send.");
       setStatus("failed");
     }
   }
@@ -152,7 +163,36 @@ export function CallbackForm() {
                 </a>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="grid gap-5">
+              <div
+                className="grid gap-5"
+                onKeyDown={(e) => {
+                  // No <form> here, so Enter in a text field would otherwise
+                  // do nothing — this keeps that keyboard expectation alive.
+                  if (e.key === "Enter" && e.target instanceof HTMLInputElement) {
+                    e.preventDefault();
+                    handleSubmit();
+                  }
+                }}
+              >
+                {/* Honeypot: hidden from sighted and screen-reader users alike,
+                    never reachable by tab. Bots that fill in every field they
+                    find will trip it; real visitors never know it exists. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                >
+                  <label htmlFor={`${id}-company`}>Company</label>
+                  <input
+                    id={`${id}-company`}
+                    name="company"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={fields.company}
+                    onChange={(e) => set("company")(e.target.value)}
+                  />
+                </div>
+
                 <Field
                   id={`${id}-name`}
                   label="Your name"
@@ -217,7 +257,8 @@ export function CallbackForm() {
                 {/* No `on-ink` here even though the button is graphite: the
                     ring is drawn outside it, on the white card. */}
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={handleSubmit}
                   disabled={status === "sending"}
                   className="inline-flex h-13 items-center justify-center gap-2 rounded-btn bg-ink px-6 font-bold text-white transition-colors hover:bg-steel disabled:opacity-60"
                 >
@@ -235,7 +276,7 @@ export function CallbackForm() {
                     role="alert"
                     className="rounded-btn border border-red/30 bg-red/5 px-4 py-3 text-sm text-ink"
                   >
-                    That didn&apos;t send. Please call us on{" "}
+                    {errorMessage || "That didn't send."} Please call us on{" "}
                     <PhoneTextLink /> and we&apos;ll sort it on the phone.
                   </p>
                 )}
@@ -244,7 +285,7 @@ export function CallbackForm() {
                   We&apos;ll only use your details to get in touch about your
                   enquiry.
                 </p>
-              </form>
+              </div>
             )}
           </div>
           </div>

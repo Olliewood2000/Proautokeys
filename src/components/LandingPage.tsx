@@ -32,7 +32,7 @@ export function LandingPage({ page, path }: { page: PageData; path: string }) {
         <HowItWorks />
         <Brands />
         <Coverage page={page} />
-        <CallbackForm />
+        <CallbackForm town={page.town} />
         <Faq items={faqs} />
       </main>
       <Footer coverage={page.footerCoverage} />
