@@ -16,6 +16,17 @@ const nextConfig: NextConfig = {
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
         ],
       },
+      {
+        // Twilio fetches this as a public static asset. Pin the MIME type so
+        // nosniff cannot turn a mis-detected file into an unplayable download.
+        source: "/audio/:path*.mp3",
+        headers: [
+          { key: "Content-Type", value: "audio/mpeg" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET, HEAD, OPTIONS" },
+          { key: "Cache-Control", value: "public, max-age=86400" },
+        ],
+      },
     ];
   },
 };
