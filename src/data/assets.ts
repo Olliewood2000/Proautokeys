@@ -1,5 +1,6 @@
 import type { StaticImageData } from "next/image";
 import callbackFocus from "@/../public/callback-focus.webp";
+import callbackMotorway from "@/../public/callback-motorway.webp";
 import callbackNissan from "@/../public/callback-nissan.webp";
 import heroKey from "@/../public/hero-key.webp";
 import logo from "@/../public/logo.webp";
@@ -53,6 +54,9 @@ export const ASSETS = {
 
   /** Ford Focus, facing right. Peeks out from behind the callback form. */
   callbackCarRight: callbackFocus as AssetPath,
+
+  /** Red-tinted motorway, behind the callback form, cars and graphite floor. */
+  callbackMotorway: callbackMotorway as AssetPath,
 } as const;
 
 /**

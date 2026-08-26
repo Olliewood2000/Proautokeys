@@ -11,6 +11,7 @@ a missing file, so the site stays clean while assets are outstanding.
 | `hero-key.webp` | Done | 1024x819. Two cut Ford fobs on a branded tag in front of the car. |
 | `callback-nissan.webp` | Done | 1008x743, transparent. Qashqai facing left, behind the callback form. |
 | `callback-focus.webp` | Done | 1002x619, transparent. Focus facing right, behind the callback form. |
+| `callback-motorway.webp` | Done | 1024x512. Red-tinted motorway behind the callback form, cars and graphite floor. |
 | `brands/*.png` | Done | All 22 makes. Transparent PNGs named after the slug in `src/data/brands.ts`. |
 | Accreditation marks | Outstanding | Only if a real accreditation exists. Register in `assets.ts`, then reference from `accreditations` in `src/data/proof.ts`. |
 

@@ -172,14 +172,15 @@
 }
 
 /* Callback section: a flat graphite floor so the cars sit on a plane
-   rather than floating on the shell. Same ink as the coverage band —
-   no highlight wash, which read as a smear on the dark. */
+   rather than floating on the motorway. Sits above the photograph and
+   below the cars. Same ink as the coverage band — no highlight wash,
+   which read as a smear on the dark. */
 .callback-floor {
   pointer-events: none;
   position: absolute;
   inset-inline: 0;
   bottom: 0;
-  z-index: 0;
+  z-index: 1;
   height: 38%;
   background: var(--color-ink);
 }

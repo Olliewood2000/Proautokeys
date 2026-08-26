@@ -53,6 +53,10 @@ export function CallbackForm() {
   // we actually submitted, whatever happens to the inputs afterwards.
   const [sentTo, setSentTo] = useState("");
 
+  const backdrop = ASSETS.callbackMotorway;
+  const hasBackdrop =
+    Boolean(backdrop) && typeof backdrop !== "string";
+
   const set = (key: keyof Fields) => (value: string) => {
     setFields((prev) => ({ ...prev, [key]: value }));
     // Clear a field's error the moment it is being corrected, rather than
@@ -85,8 +89,25 @@ export function CallbackForm() {
   return (
     <section
       id="callback"
-      className="relative isolate scroll-mt-6 overflow-hidden bg-shell py-16 md:pt-24 md:pb-28"
+      className={`relative isolate scroll-mt-6 overflow-hidden py-16 md:pt-24 md:pb-28 ${hasBackdrop ? "bg-ink" : "bg-shell"}`}
     >
+      {/* Back: motorway. Then the graphite floor, then the cars, then the card. */}
+      {hasBackdrop && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0"
+        >
+          <Image
+            src={backdrop as Exclude<typeof backdrop, string | null>}
+            alt=""
+            fill
+            placeholder="blur"
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+        </div>
+      )}
+
       <div aria-hidden="true" className="callback-floor" />
 
       <div className="relative z-10 mx-auto grid max-w-[100rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,38rem)_minmax(0,1fr)]">
@@ -257,7 +278,7 @@ function CallbackCar({
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none relative hidden lg:block"
+      className="pointer-events-none relative z-[2] hidden lg:block"
     >
       <Image
         src={src}
