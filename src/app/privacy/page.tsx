@@ -16,7 +16,7 @@ function H2({ children }: { children: React.ReactNode }) {
 export default function Privacy() {
   return (
     <LegalPage title="Privacy Policy">
-      <p className="text-sm text-slate">Last updated: 26 August 2026</p>
+      <p className="text-sm text-slate">Last updated: 5 September 2026</p>
 
       <p>
         {BRAND} is a mobile auto locksmith service covering Kent. This policy
@@ -72,6 +72,11 @@ export default function Privacy() {
           The website itself is hosted on Vercel, who process the technical
           request to load the page in the same way any web host does.
         </li>
+        <li>
+          Google&rsquo;s advertising tag runs on the site so we can tell
+          whether a visit came from a Google Ad. Google may set cookies or
+          similar storage in your browser to do that.
+        </li>
       </ul>
       <p>
         If your job is carried out by a locksmith working under the {BRAND}{" "}
@@ -81,11 +86,17 @@ export default function Privacy() {
 
       <H2>Cookies and analytics</H2>
       <p>
-        This site doesn&rsquo;t use tracking or advertising cookies. We use
-        Vercel&rsquo;s privacy-focused analytics to see roughly how many
-        people visit and which pages they land on. It doesn&rsquo;t use
-        cookies or store anything that identifies you personally, and we
-        can&rsquo;t use it to single out an individual visitor.
+        We use Vercel&rsquo;s privacy-focused analytics to see roughly how
+        many people visit and which pages they land on. It doesn&rsquo;t
+        use cookies or store anything that identifies you personally, and
+        we can&rsquo;t use it to single out an individual visitor.
+      </p>
+      <p>
+        We also load Google&rsquo;s advertising tag (gtag.js) so we can
+        measure whether our Google Ads led to a visit. That tag may set
+        cookies or similar storage. We use it to understand if the ads are
+        working, not to build a profile from the details you give us over
+        the phone or through the callback form.
       </p>
 
       <H2>How long we keep it</H2>
